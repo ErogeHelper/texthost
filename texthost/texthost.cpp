@@ -5,27 +5,27 @@
 #include "hookcode.h"
 #include <fstream>
 
-//const wchar_t* ALREADY_INJECTED = L"Textractor: already injected";
-//const wchar_t* NEED_32_BIT = L"Textractor: architecture mismatch: only Textractor x86 can inject this process";
-//const wchar_t* NEED_64_BIT = L"Textractor: architecture mismatch: only Textractor x64 can inject this process";
-//const wchar_t* INVALID_CODEPAGE = L"Textractor: couldn't convert text (invalid codepage?)";
-//const wchar_t* INJECT_FAILED = L"Textractor: couldn't inject";
-//const wchar_t* INVALID_CODE = L"Textractor: invalid code";
-//const wchar_t* INVALID_PROCESS = L"Textractor: invalid process";
-//const wchar_t* INITIALIZED = L"Textractor: initialization completed";
-//const wchar_t* CONSOLE = L"Console";
-//const wchar_t* CLIPBOARD = L"Clipboard";
+const wchar_t* ALREADY_INJECTED = L"Textractor: already injected";
+const wchar_t* NEED_32_BIT = L"Textractor: architecture mismatch: only Textractor x86 can inject this process";
+const wchar_t* NEED_64_BIT = L"Textractor: architecture mismatch: only Textractor x64 can inject this process";
+const wchar_t* INVALID_CODEPAGE = L"Textractor: couldn't convert text (invalid codepage?)";
+const wchar_t* INJECT_FAILED = L"Textractor: couldn't inject";
+const wchar_t* INVALID_CODE = L"Textractor: invalid code";
+const wchar_t* INVALID_PROCESS = L"Textractor: invalid process";
+const wchar_t* INITIALIZED = L"Textractor: initialization completed";
+const wchar_t* CONSOLE = L"Console";
+const wchar_t* CLIPBOARD = L"Clipboard";
 
-const wchar_t* ALREADY_INJECTED = L"Textractor: 已经注入";
-const wchar_t* NEED_32_BIT = L"Textractor: 架构不匹配: 请尝试使用32位版本的Textractor";
-const wchar_t* NEED_64_BIT = L"Textractor: 架构不匹配: 请尝试使用64位版本的Textractor";
-const wchar_t* INVALID_CODEPAGE = L"Textractor: 无法转换文本 (无效的代码页?)";
-const wchar_t* INJECT_FAILED = L"Textractor: 无法注入";
-const wchar_t* INVALID_CODE = L"Textractor: 无效特殊码";
-const wchar_t* INVALID_PROCESS = L"Textractor: 无效进程ID";
-const wchar_t* INITIALIZED = L"Textractor: 初始化完成";
-const wchar_t* CONSOLE = L"控制台";
-const wchar_t* CLIPBOARD = L"剪贴板";
+//const wchar_t* ALREADY_INJECTED = L"Textractor: 已经注入";
+//const wchar_t* NEED_32_BIT = L"Textractor: 架构不匹配: 请尝试使用32位版本的Textractor";
+//const wchar_t* NEED_64_BIT = L"Textractor: 架构不匹配: 请尝试使用64位版本的Textractor";
+//const wchar_t* INVALID_CODEPAGE = L"Textractor: 无法转换文本 (无效的代码页?)";
+//const wchar_t* INJECT_FAILED = L"Textractor: 无法注入";
+//const wchar_t* INVALID_CODE = L"Textractor: 无效特殊码";
+//const wchar_t* INVALID_PROCESS = L"Textractor: 无效进程ID";
+//const wchar_t* INITIALIZED = L"Textractor: 初始化完成";
+//const wchar_t* CONSOLE = L"控制台";
+//const wchar_t* CLIPBOARD = L"剪贴板";
 
 namespace TextHost
 {
