@@ -11,21 +11,18 @@ public:
 	inline static bool filterRepetition = true;
 	inline static int flushDelay = 400; // flush every 400ms by default
 	inline static int maxBufferSize = 1000;
-	//inline static int maxHistorySize = 10'000'000;
 
-	TextThread(ThreadParam tp, HookParam hp, std::optional<std::wstring> name = {});
+	TextThread(ThreadParam tp, HookBaseInfo hp, std::optional<std::wstring> name = {});
 
 	void Start();
 	void Stop();
 	void AddSentence(std::wstring sentence);
 	void Push(BYTE* data, int length);
-	//void Push(const wchar_t* data);
 
-	//Synchronized<std::wstring> storage;
 	const int64_t handle;
 	const std::wstring name;
 	const ThreadParam tp;
-	const HookParam hp;
+	const HookBaseInfo hp;
 
 private:
 	inline static int threadCounter = 0;

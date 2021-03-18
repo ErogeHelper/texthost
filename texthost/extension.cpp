@@ -1,15 +1,13 @@
 #include "pch.h"
 #include "extension.h"
+#include <cwctype>
 
 namespace Extension 
 {    
-	//https://github.com/Artikash/Textractor/tree/master/extensions
 	constexpr wchar_t ERASED = 0xf246;
 
     void RemoveRepeatChar(std::wstring& sentence)
 	{
-		 //if (id == 0) return;
-
 		 std::vector<int> repeatNumbers(sentence.size() + 1, 0);
 		 int repeatNumber = 1;
 		 wchar_t prevChar = L'\0';
@@ -83,8 +81,6 @@ namespace Extension
 
 	void RemoveRepeatPhrase(std::wstring& sentence)
 	{
-		//if (id == 0) return false;
-		//std::wstring sentence(text);
 		// This algorithm looks for repeating substrings (in other words, common prefixes among the set of suffixes) of the sentence with length > 6
 		// It then looks for any regions of characters at least twice as long as the substring made up only of characters in the substring, and erases them
 		// If this results in the substring being completely erased from the string, the substring is copied to the last location where it was located in the original string
@@ -115,5 +111,42 @@ namespace Extension
 			}
 		}
 		sentence.erase(std::remove(sentence.begin(), sentence.end(), ERASED), sentence.end());
+	}
+
+	template <typename Sequence, typename Pred>     
+	Sequence& trim(Sequence& seq, Pred pred) 
+	{
+		return trim_start(trim_end(seq, pred), pred);
+	}
+
+	template <typename Sequence, typename Pred>
+	Sequence& trim_end(Sequence& seq, Pred pred) 
+	{
+		auto last = std::find_if_not(seq.rbegin(), seq.rend(), pred);
+		seq.erase(last.base(), seq.end());
+		return seq;
+	}
+
+	template <typename Sequence, typename Pred>
+	Sequence& trim_start(Sequence& seq, Pred pred) 
+	{
+		auto first = std::find_if_not(seq.begin(), seq.end(), pred);
+		seq.erase(seq.begin(), first);
+		return seq;
+	}
+
+	std::wstring& trim(std::wstring& str) 
+	{
+		return trim(str, [](const wchar_t c) { return std::iswspace(c); });
+	}
+
+	std::wstring& trim_start(std::wstring& str) 
+	{
+		return trim_start(str, [](const wchar_t c) { return std::iswspace(c); });
+	}
+
+	std::wstring& trim_end(std::wstring& str) 
+	{
+		return trim_end(str, [](const wchar_t c) { return std::iswspace(c); });
 	}
 }

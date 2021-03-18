@@ -14,7 +14,7 @@ static bool RemoveRepetition(std::wstring& text)
 	return false;
 }
 
-TextThread::TextThread(ThreadParam tp, HookParam hp, std::optional<std::wstring> name) :
+TextThread::TextThread(ThreadParam tp, HookBaseInfo hp, std::optional<std::wstring> name) :
 	handle(threadCounter++),
 	name(name.value_or(StringToWideString(hp.name))),
 	tp(tp),
@@ -71,21 +71,8 @@ void TextThread::Push(BYTE* data, int length)
 	}
 }
 
-//void TextThread::Push(const wchar_t* data)
-//{
-//	std::scoped_lock lock(bufferMutex);
-//	// not sure if this should filter repetition
-//	lastPushTime = GetTickCount();
-//	buffer += data;
-//}
-
 void TextThread::Flush()
 {
-	//{
-	//	auto storage = this->storage.Acquire();
-	//	if (storage->size() > maxHistorySize) storage->erase(0, storage->size() - maxHistorySize); // https://github.com/Artikash/Textractor/issues/127#issuecomment-486882983
-	//}
-
 	std::vector<std::wstring> sentences;
 	queuedSentences->swap(sentences);
 	int totalSize = 0;
