@@ -7,8 +7,6 @@
 #include "yapi.h"
 
 extern const wchar_t* ALREADY_INJECTED;
-extern const wchar_t* NEED_32_BIT;
-extern const wchar_t* NEED_64_BIT;
 extern const wchar_t* INJECT_FAILED;
 extern const wchar_t* CONSOLE;
 extern const wchar_t* CLIPBOARD;
