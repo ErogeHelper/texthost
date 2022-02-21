@@ -34,13 +34,13 @@ namespace
 			UnmapViewOfFile(viewX64);
 		}
 
-		HookBaseInfo GetHookInfo(uint64_t addr, DWORD processId, bool x64)
+		HookInfo GetHookInfo(uint64_t addr, DWORD processId, bool x64)
 		{
 			return x64 ? GetHook(viewX64, addr, processId) : GetHook(viewX86, addr, processId);
 		}
 
 		template <typename T>
-		HookBaseInfo GetHook(T const& view, uint64_t addr, DWORD processId)
+		HookInfo GetHook(T const& view, uint64_t addr, DWORD processId)
 		{
 			if (!view) return {};
 			std::scoped_lock lock(viewMutex);
@@ -48,7 +48,7 @@ namespace
 			{
 				if (hook.address == addr)
 				{
-					HookBaseInfo data = {};
+					HookInfo data = {};
 					data.codepage = hook.hp.codepage;
 					data.type = hook.hp.type;
 					data.HookCode = HookCode::Generate(hook.hp, processId);
@@ -199,7 +199,7 @@ namespace Host
 		OnCreate = [Create](TextThread& thread) { Create(thread); thread.Start(); };
 		OnDestroy = [Destroy](TextThread& thread) { thread.Stop(); Destroy(thread); };
 		TextThread::Output = Output;
-		HookBaseInfo info;
+		HookInfo info;
 		info.HookCode = HookCode::Generate(HookParamX86{});
 		textThreadsByParams->try_emplace(console, console, info, CONSOLE);
 		OnCreate(GetThread(console));
@@ -298,7 +298,7 @@ namespace Host
 
 	void AddClipboardThread(DWORD thread_id)
 	{
-		HookBaseInfo info;
+		HookInfo info;
 		info.HookCode = HookCode::Generate(HookParamX86{});
 		textThreadsByParams->try_emplace(clipboard, clipboard, info, CLIPBOARD);
 		OnCreate(GetThread(clipboard));
