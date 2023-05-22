@@ -1,10 +1,11 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "host.h"
 #include "defs.h"
 #include "module.h"
 #include "texthook.h"
 #include "hookcode.h"
 #include "yapi.h"
+
 
 extern const wchar_t* ALREADY_INJECTED;
 extern const wchar_t* INJECT_FAILED;
@@ -224,23 +225,38 @@ namespace Host
 						location = std::filesystem::path(GetModuleFilename().value()).replace_filename(ITH_DLL_X64);
 					}
 
-					if (x64 != is64Bit)
+					STARTUPINFO si = {};
+					si.cb = sizeof(STARTUPINFO);
+					si.dwFlags = STARTF_USESHOWWINDOW;
+					si.wShowWindow = SW_HIDE;
+					PROCESS_INFORMATION pi = {};
+
+					std::wstring injector = is64Bit ?
+						std::filesystem::path(GetModuleFilename().value()).replace_filename(INJECTOR_EXE_X64) :
+						std::filesystem::path(GetModuleFilename().value()).replace_filename(INJECTOR_EXE_X86);
+
+					auto pid = std::to_wstring(processId);
+					auto args = injector + L" " + pid + L" " + location;
+
+					if (!std::filesystem::exists(injector))
+						MessageBox(nullptr, injector.c_str(), L"texthost", 0);
+
+					if (!std::filesystem::exists(location))
+						MessageBox(nullptr, const_cast<LPWSTR>(args.c_str()), L"texthost", 0);
+
+					if (CreateProcess(injector.c_str(), const_cast<LPWSTR>(args.c_str()), NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
 					{
-						DWORD64 injectedDll;
-						yapi::YAPICall LoadLibraryW(process, _T("kernel32.dll"), "LoadLibraryW");
-						if(x64)injectedDll = LoadLibraryW.Dw64()(location.c_str());
-						else injectedDll = LoadLibraryW(location.c_str());
-						if(injectedDll == NULL) AddConsoleOutput(INJECT_FAILED);
-						return;
+						WaitForSingleObject(pi.hProcess, INFINITE);
+
+						CloseHandle(pi.hProcess);
+						CloseHandle(pi.hThread);
 					}
-					
-					if (LPVOID remoteData = VirtualAllocEx(process, nullptr, (location.size() + 1) * sizeof(wchar_t), MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE))
+					else
 					{
-						WriteProcessMemory(process, remoteData, location.c_str(), (location.size() + 1) * sizeof(wchar_t), nullptr);
-						if (AutoHandle<> thread = CreateRemoteThread(process, nullptr, 0, (LPTHREAD_START_ROUTINE)LoadLibraryW, remoteData, 0, nullptr)) WaitForSingleObject(thread, INFINITE);
-						VirtualFreeEx(process, remoteData, 0, MEM_RELEASE);
-						return;
+						DWORD error = GetLastError();
+						MessageBox(nullptr, (L"Failed to create process. Error code: " + std::to_wstring(error)).c_str(), L"texthost.dll", 0);
 					}
+					return;
 				}
 
 				AddConsoleOutput(INJECT_FAILED);
