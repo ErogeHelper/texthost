@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "pch.h"
 #include "const.h"
@@ -18,6 +18,7 @@ inline SECURITY_ATTRIBUTES allAccess = std::invoke([] // allows non-admin proces
 	{
 		static SECURITY_DESCRIPTOR sd = {};
 		InitializeSecurityDescriptor(&sd, SECURITY_DESCRIPTOR_REVISION);
+		// 第三个参数设置为 null 警告
 		SetSecurityDescriptorDacl(&sd, TRUE, NULL, FALSE);
 		return SECURITY_ATTRIBUTES{ sizeof(SECURITY_ATTRIBUTES), &sd, FALSE };
 	});
