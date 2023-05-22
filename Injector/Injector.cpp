@@ -1,7 +1,5 @@
-﻿// Injector.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
+﻿// injector.cpp : このファイルには 'main' 関数が含まれています。プログラム実行の開始と終了がそこで行われます。
 //
-
-//#include "../texthost/common.h"
 
 #include <Windows.h>
 #include <string>
@@ -28,7 +26,6 @@ int main(int argc, char* argv[])
 		VirtualFreeEx(process, remoteData, 0, MEM_RELEASE);
 		return 0;
 	}
-	return -1;
 }
 
 // プログラムの実行: Ctrl + F5 または [デバッグ] > [デバッグなしで開始] メニュー
