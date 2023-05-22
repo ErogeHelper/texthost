@@ -23,11 +23,11 @@ constexpr auto PIPE_AVAILABLE_EVENT = L"TEXTRACTOR_PIPE_AVAILABLE";
 
 // Files
 
-constexpr auto INJECTOR_EXE_X86 = L"libs\\x86\\injector.exe";
-constexpr auto INJECTOR_EXE_X64 = L"libs\\x64\\injector.exe";
+constexpr auto INJECTOR_EXE_X86 = L"x86\\injector.exe";
+constexpr auto INJECTOR_EXE_X64 = L"x64\\injector.exe";
 
-constexpr auto ITH_DLL_X86 = L"libs\\x86\\texthook.dll"; 
-constexpr auto ITH_DLL_X64 = L"libs\\x64\\texthook.dll"; 
+constexpr auto ITH_DLL_X86 = L"x86\\texthook.dll"; 
+constexpr auto ITH_DLL_X64 = L"x64\\texthook.dll"; 
 
 constexpr auto& GAME_CONFIG_FILE = L"TextractorConfig.txt";
 
