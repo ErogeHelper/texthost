@@ -204,5 +204,10 @@ namespace TextHost
 			Host::AddClipboardThread(threadId);
 		}
 	}
+
+	DLLEXPORT VOID WINAPI UpdateFlushTimeout(DWORD timeout)
+	{
+		TextThread::flushDelay = timeout;
+	}
 }
 

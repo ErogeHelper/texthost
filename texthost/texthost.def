@@ -8,3 +8,4 @@ EXPORTS
   SearchForText @6
   SearchForHooks @7
   AddClipboardThread @8
+  UpdateFlushTimeout @9
