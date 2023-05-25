@@ -239,10 +239,10 @@ namespace Host
 					auto args = injector + L" " + pid + L" " + location;
 
 					if (!std::filesystem::exists(injector))
-						MessageBox(nullptr, injector.c_str(), L"texthost", 0);
+						MessageBox(nullptr, injector.c_str(), L"texthost - injector not exist", 0);
 
 					if (!std::filesystem::exists(location))
-						MessageBox(nullptr, const_cast<LPWSTR>(args.c_str()), L"texthost", 0);
+						MessageBox(nullptr, const_cast<LPWSTR>(args.c_str()), L"texthost - texthook.dll not exist", 0);
 
 					if (CreateProcess(injector.c_str(), const_cast<LPWSTR>(args.c_str()), NULL, NULL, FALSE, CREATE_NO_WINDOW, NULL, NULL, &si, &pi))
 					{
